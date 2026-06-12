@@ -24,7 +24,7 @@ def show():
         api_key = st.text_input(
             "Google Gemini API Key",
             type="password",
-            value=st.session_state.get("api_key", ""),
+            value=st.session_state.get("api_key", st.secrets.get("GEMINI_API_KEY", "")),
             help="Получить ключ: https://aistudio.google.com/apikey"
         )
         if api_key:
