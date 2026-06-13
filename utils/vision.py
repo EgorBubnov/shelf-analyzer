@@ -1,18 +1,20 @@
+import anthropic
+import base64
 import json
 import re
-import base64
-import urllib.request
 from PIL import Image
 import io
 
 
 def analyze_shelf_image(image_bytes: bytes, planogram: dict, api_key: str) -> dict:
+    client = anthropic.Anthropic(api_key=api_key)
+
     img = Image.open(io.BytesIO(image_bytes))
     if img.mode != "RGB":
         img = img.convert("RGB")
     buf = io.BytesIO()
     img.save(buf, format="JPEG", quality=85)
-    img_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+    img_b64 = base64.standard_b64encode(buf.getvalue()).decode("utf-8")
 
     planogram_desc = f"Планограмма '{planogram['name']}':\n"
     for shelf in planogram["shelves"]:
@@ -35,27 +37,19 @@ def analyze_shelf_image(image_bytes: bytes, planogram: dict, api_key: str) -> di
 Ответь ТОЛЬКО JSON без пояснений:
 {{"shelves_detected":N,"shelves":[{{"shelf_number":1,"name":"...","products_found":["..."],"order_correct":true,"missing_products":["..."],"extra_products":["..."],"wrong_order_details":"...","confidence":"high"}}],"overall_compliance":85,"critical_violations":["..."],"summary":"резюме на русском"}}"""
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={api_key}"
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1500,
+        messages=[{
+            "role": "user",
+            "content": [
+                {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": img_b64}},
+                {"type": "text", "text": prompt}
+            ]
+        }]
+    )
 
-    payload = {
-        "contents": [{"parts": [
-            {"text": prompt},
-            {"inline_data": {"mime_type": "image/jpeg", "data": img_b64}}
-        ]}],
-        "generationConfig": {"temperature": 0.1, "maxOutputTokens": 1500}
-    }
-
-    data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(url, data=data,
-                                  headers={"Content-Type": "application/json"}, method="POST")
-
-    try:
-        with urllib.request.urlopen(req) as response:
-            result_raw = json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        raise Exception(f"API error {e.code}: {e.read().decode()}")
-
-    raw = result_raw["candidates"][0]["content"]["parts"][0]["text"].strip()
+    raw = response.content[0].text.strip()
     raw = re.sub(r'^```(?:json)?\s*', '', raw)
     raw = re.sub(r'\s*```$', '', raw)
     return json.loads(raw)
