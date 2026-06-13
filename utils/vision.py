@@ -7,7 +7,7 @@ import io
 
 
 def analyze_shelf_image(image_bytes: bytes, planogram: dict, api_key: str) -> dict:
-    client = anthropic.Anthropic(api_key=api_key)
+    client = anthropic.Anthropic(api_key=api_key, base_url="https://api.aiprimetech.io")
 
     img = Image.open(io.BytesIO(image_bytes))
     if img.mode != "RGB":
