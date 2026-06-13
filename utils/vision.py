@@ -49,7 +49,7 @@ def analyze_shelf_image(image_bytes: bytes, planogram: dict, api_key: str) -> di
         }]
     )
 
-    raw = response.content[0].text.strip()
+    raw = next(block.text for block in response.content if hasattr(block, 'text')).strip()
     raw = re.sub(r'^```(?:json)?\s*', '', raw)
     raw = re.sub(r'\s*```$', '', raw)
     return json.loads(raw)
