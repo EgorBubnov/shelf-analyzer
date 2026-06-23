@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Функция динамической конвертации фона в Base64
+# Функция динамической конвертации изображений в Base64
 def get_base64_background(image_path):
     if os.path.exists(image_path):
         with open(image_path, "rb") as f:
@@ -17,7 +17,8 @@ def get_base64_background(image_path):
         return base64.b64encode(data).decode()
     return None
 
-bg_base64 = get_base64_background("epic bakground.jpg")
+main_bg_base64 = get_base64_background("epic bakground.jpg")
+sidebar_bg_base64 = get_base64_background("Black Fignya.jpg")
 
 # Инжектим базовые стили приложения
 st.markdown("""
@@ -43,9 +44,8 @@ st.markdown("""
     display: none !important;
 }
 
-/* ─── SIDEBAR ─── */
+/* ─── SIDEBAR BASE ─── */
 [data-testid="stSidebar"] {
-    background: #1C1C1A !important;
     border-right: none !important;
     min-width: 200px !important;
     max-width: 200px !important;
@@ -62,12 +62,16 @@ st.markdown("""
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #F5F0E8;
+    position: relative;
+    z-index: 2;
 }
 .sc-brand-accent { color: #D4401A !important; }
 .sc-divline {
     margin: 16px 24px;
     border: none;
-    border-top: 1px solid #2E2E2C;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 2;
 }
 .sc-nav-section {
     padding: 0 24px 8px;
@@ -75,7 +79,9 @@ st.markdown("""
     font-size: 9px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #5A5A52 !important;
+    color: #8C8C7A !important;
+    position: relative;
+    z-index: 2;
 }
 
 /* ─── MAIN ─── */
@@ -199,83 +205,6 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     line-height: 1.5;
 }
 
-/* ─── SHELF CARDS ─── */
-.shelf-wrap {
-    background: #EDEAE0;
-    margin-bottom: 4px;
-}
-.shelf-head {
-    padding: 13px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #DDD9CF;
-}
-.shelf-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: #1C1C1A;
-    letter-spacing: 0.01em;
-}
-.shelf-body { padding: 16px 20px; }
-.col-lbl {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #8C8C7A;
-    margin-bottom: 10px;
-}
-.prod-item {
-    font-size: 13px;
-    color: #3A3A36;
-    padding: 4px 0;
-    border-bottom: 1px solid #DDD9CF;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.prod-item:last-child { border-bottom: none; }
-.prod-idx {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: #8C8C7A;
-    min-width: 18px;
-}
-
-/* status chips */
-.chip {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border: 1px solid currentColor;
-}
-.chip-ok  { color: #2D6A4F; }
-.chip-bad { color: #D4401A; }
-.chip-mid { color: #B45309; }
-
-.tag-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
-.tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    padding: 3px 9px;
-    letter-spacing: 0.06em;
-}
-.tag-miss  { background: transparent; border: 1px solid #D4401A; color: #D4401A; }
-.tag-extra { background: transparent; border: 1px solid #B45309; color: #B45309; }
-.tag-ok    { background: transparent; border: 1px solid #2D6A4F; color: #2D6A4F; }
-.tag-note  { background: transparent; border: 1px solid #8C8C7A; color: #8C8C7A; }
-
-.wrong-note {
-    font-size: 12px;
-    color: #8C8C7A;
-    margin-top: 10px;
-    line-height: 1.6;
-    font-style: italic;
-}
-
 /* ─── INPUTS ─── */
 .stTextInput input, .stNumberInput input {
     background: #EDEAE0 !important;
@@ -285,11 +214,6 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     font-size: 13.5px !important;
     color: #1C1C1A !important;
     padding: 10px 14px !important;
-}
-.stTextInput input:focus, .stNumberInput input:focus {
-    border-color: #1C1C1A !important;
-    box-shadow: none !important;
-    outline: none !important;
 }
 label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
 
@@ -308,21 +232,6 @@ label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0
     transition: background .15s !important;
 }
 .stButton > button:hover { background: #D4401A !important; }
-.stButton > button:disabled { background: #DDD9CF !important; color: #8C8C7A !important; }
-
-/* download button */
-.stDownloadButton > button {
-    background: transparent !important;
-    color: #1C1C1A !important;
-    border: 1px solid #1C1C1A !important;
-    border-radius: 0 !important;
-    font-family: 'DM Mono', monospace !important;
-    font-size: 11px !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
-    padding: 9px 18px !important;
-}
-.stDownloadButton > button:hover { background: #1C1C1A !important; color: #F5F0E8 !important; }
 
 /* ─── FILE UPLOADER ─── */
 [data-testid="stFileUploader"] {
@@ -332,19 +241,11 @@ label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0
     padding: 12px !important;
 }
 
-/* ─── EXPANDER ─── */
-div[data-testid="stExpander"] {
-    border: 1px solid #DDD9CF !important;
-    border-radius: 0 !important;
-    background: #EDEAE0 !important;
+/* ─── RADIO (навигация в сайдбаре) ─── */
+[data-testid="stRadio"] {
+    position: relative;
+    z-index: 2;
 }
-div[data-testid="stExpander"] summary {
-    font-family: 'Space Grotesk', sans-serif !important;
-    font-size: 13px !important;
-    font-weight: 500 !important;
-}
-
-/* ─── RADIO (nav) ─── */
 [data-testid="stRadio"] > div { gap: 0 !important; }
 [data-testid="stRadio"] label {
     font-family: 'Space Grotesk', sans-serif !important;
@@ -357,11 +258,12 @@ div[data-testid="stExpander"] summary {
     transition: all .15s !important;
     display: block !important;
 }
-[data-testid="stRadio"] label:hover { color: #F5F0E8 !important; background: #2E2E2C !important; }
+[data-testid="stRadio"] label:hover { color: #F5F0E8 !important; background: rgba(255, 255, 255, 0.05) !important; }
 [data-baseweb="radio"][aria-checked="true"] + div label,
 [data-testid="stRadio"] [aria-checked="true"] ~ label {
     color: #F5F0E8 !important;
     border-left-color: #D4401A !important;
+    background: rgba(255, 255, 255, 0.08) !important;
 }
 
 .stAlert { border-radius: 0 !important; }
@@ -374,12 +276,12 @@ div[data-testid="stExpander"] summary {
 </style>
 """, unsafe_allow_html=True)
 
-# Изолированно применяем фоновое изображение, чтобы не ломать экранирование строк
-if bg_base64:
+# Динамическое применение картинок, если файлы на месте
+if main_bg_base64:
     st.markdown(f"""
     <style>
     [data-testid="stAppViewContainer"] {{
-        background-image: url("data:image/jpeg;base64,{bg_base64}") !important;
+        background-image: url("data:image/jpeg;base64,{main_bg_base64}") !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
@@ -391,18 +293,27 @@ if bg_base64:
     </style>
     """, unsafe_allow_html=True)
 else:
-    st.markdown("""
+    st.markdown('<style>[data-testid="stAppViewContainer"] { background-color: #F5F0E8 !important; }</style>', unsafe_allow_html=True)
+
+if sidebar_bg_base64:
+    st.markdown(f"""
     <style>
-    [data-testid="stAppViewContainer"] {
-        background-color: #F5F0E8 !important;
-    }
+    [data-testid="stSidebar"] {{
+        background-image: url("data:image/jpeg;base64,{sidebar_bg_base64}") !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }}
     </style>
     """, unsafe_allow_html=True)
+else:
+    st.markdown('<style>[data-testid="stSidebar"] { background: #1C1C1A !important; }</style>', unsafe_allow_html=True)
 
-# Sidebar
+
+# Sidebar Content
 st.sidebar.markdown('<div class="sc-brand">Shelf<span class="sc-brand-accent">Control</span></div>', unsafe_allow_html=True)
 
-
+st.sidebar.markdown('<div class="sc-nav-section">Разделы</div>', unsafe_allow_html=True)
 
 page = st.sidebar.radio("", ["Планограмма", "Анализ", "История"], label_visibility="collapsed")
 
@@ -415,5 +326,3 @@ elif page == "Анализ":
     from pages import analyze
     analyze.show()
 elif page == "История":
-    from pages import history
-    history.show()
