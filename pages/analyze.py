@@ -18,15 +18,11 @@ def show():
         st.warning("Планограмма пустая — добавьте товары.")
         return
 
-    with st.expander("Настройки API", expanded=False):
-        try:
-            default_key = st.secrets.get("ANTHROPIC_API_KEY", "")
-        except Exception:
-            default_key = ""
-        api_key = st.text_input("API Key", type="password",
-                                value=st.session_state.get("api_key", default_key))
-        if api_key:
-            st.session_state.api_key = api_key
+    # Автоматическое скрытое получение ключа
+    try:
+        api_key = st.secrets.get("ANTHROPIC_API_KEY", "")
+    except Exception:
+        api_key = ""
 
     col_l, col_r = st.columns([5, 4])
 
@@ -53,14 +49,14 @@ def show():
 
     st.markdown("<hr class='rule'>", unsafe_allow_html=True)
 
-    can_run = bool(uploaded and st.session_state.get("api_key"))
-    if not st.session_state.get("api_key"):
-        st.caption("Введите API ключ в настройках выше")
+    can_run = bool(uploaded and api_key)
+    if not api_key:
+        st.caption("Ошибка конфигурации: ключ ANTHROPIC_API_KEY не найден в secrets.")
 
     if st.button("Запустить анализ", disabled=not can_run, type="primary", use_container_width=True):
         with st.spinner("Анализирую выкладку..."):
             try:
-                result = analyze_shelf_image(image_bytes, planogram, st.session_state.api_key)
+                result = analyze_shelf_image(image_bytes, planogram, api_key)
                 if "history" not in st.session_state:
                     st.session_state.history = []
                 st.session_state.history.append({
@@ -99,7 +95,7 @@ def _render(result: dict, planogram: dict):
     else:
         bar_color, kpi_cls, sum_cls = "#D4401A", "red", "bad"
 
-    # KPI
+    # KPI метрики
     st.markdown(f"""
     <div class="kpi-grid">
         <div class="kpi-card accent">
