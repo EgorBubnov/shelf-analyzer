@@ -1,6 +1,8 @@
+import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 import streamlit as st
 import base64
-import os
 
 st.set_page_config(
     page_title="ShelfControl",
