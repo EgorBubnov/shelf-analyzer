@@ -366,13 +366,12 @@ div[data-testid="stExpander"] summary {
 
 # Sidebar
 st.sidebar.markdown('<div class="sc-brand">Shelf<span class="sc-brand-accent">Control</span></div>', unsafe_allow_html=True)
-st.sidebar.markdown('<hr class="sc-divline">', unsafe_allow_html=True)
-st.sidebar.markdown('<div class="sc-nav-section">Разделы</div>', unsafe_allow_html=True)
+
+
 
 page = st.sidebar.radio("", ["Планограмма", "Анализ", "История"], label_visibility="collapsed")
 
-st.sidebar.markdown('<hr class="sc-divline" style="margin-top:auto">', unsafe_allow_html=True)
-st.sidebar.markdown('<div style="padding:16px 24px;font-family:\'DM Mono\',monospace;font-size:10px;color:#5A5A52;letter-spacing:0.1em">v1.0 / 2026</div>', unsafe_allow_html=True)
+
 
 if page == "Планограмма":
     from pages import planogram
