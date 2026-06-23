@@ -27,12 +27,18 @@ st.markdown("""
 #MainMenu, footer, header { visibility: hidden; }
 [data-testid="stSidebarNav"] { display: none; }
 
+/* Полностью скрываем кнопку сворачивания/разворачивания боковой панели */
+[data-testid="stSidebarCollapseButton"] {
+    display: none !important;
+}
+
 /* ─── SIDEBAR ─── */
 [data-testid="stSidebar"] {
     background: #1C1C1A !important;
     border-right: none !important;
     min-width: 200px !important;
     max-width: 200px !important;
+    transform: none !important; /* Блокируем анимацию сдвига */
 }
 [data-testid="stSidebar"] > div { padding: 0 !important; }
 [data-testid="stSidebar"] * { color: #F5F0E8 !important; }
