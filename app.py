@@ -1,4 +1,6 @@
 import streamlit as st
+import base64
+import os
 
 st.set_page_config(
     page_title="ShelfControl",
@@ -7,19 +9,28 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Функция динамической конвертации фона в Base64
+def get_base64_background(image_path):
+    if os.path.exists(image_path):
+        with open(image_path, "rb") as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+    return None
+
+bg_base64 = get_base64_background("epic bakground.jpg")
+
+# Инжектим базовые стили приложения
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* Фиксируем благородный светлый фон для всех внутренних контейнеров Streamlit */
-[data-testid="stAppViewContainer"], 
-[data-testid="stMainBlockContainer"], 
-.main, body {
+/* Дефолтный шрифт и сброс базовых слоев */
+[data-testid="stMainBlockContainer"], .main, body {
     font-family: 'Space Grotesk', sans-serif !important;
-    background-color: #F5F0E8 !important;
 }
+
 [data-testid="stHeader"] {
     background-color: transparent !important;
 }
@@ -27,7 +38,7 @@ st.markdown("""
 #MainMenu, footer, header { visibility: hidden; }
 [data-testid="stSidebarNav"] { display: none; }
 
-/* Полностью скрываем кнопку сворачивания/разворачивания боковой панели */
+/* Полностью скрываем кнопку управления боковой панелью (фиксируем её) */
 [data-testid="stSidebarCollapseButton"] {
     display: none !important;
 }
@@ -38,7 +49,7 @@ st.markdown("""
     border-right: none !important;
     min-width: 200px !important;
     max-width: 200px !important;
-    transform: none !important; /* Блокируем анимацию сдвига */
+    transform: none !important;
 }
 [data-testid="stSidebar"] > div { padding: 0 !important; }
 [data-testid="stSidebar"] * { color: #F5F0E8 !important; }
@@ -331,7 +342,6 @@ div[data-testid="stExpander"] summary {
     font-family: 'Space Grotesk', sans-serif !important;
     font-size: 13px !important;
     font-weight: 500 !important;
-    color: #1C1C1A !important;
 }
 
 /* ─── RADIO (nav) ─── */
@@ -363,6 +373,31 @@ div[data-testid="stExpander"] summary {
 [data-testid="stMetricValue"] { font-family: 'DM Mono', monospace !important; font-size: 28px !important; color: #1C1C1A !important; }
 </style>
 """, unsafe_allow_html=True)
+
+# Изолированно применяем фоновое изображение, чтобы не ломать экранирование строк
+if bg_base64:
+    st.markdown(f"""
+    <style>
+    [data-testid="stAppViewContainer"] {{
+        background-image: url("data:image/jpeg;base64,{bg_base64}") !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+    }}
+    [data-testid="stMainBlockContainer"], .main, body {{
+        background-color: transparent !important;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+else:
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #F5F0E8 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Sidebar
 st.sidebar.markdown('<div class="sc-brand">Shelf<span class="sc-brand-accent">Control</span></div>', unsafe_allow_html=True)
