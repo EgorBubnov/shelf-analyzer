@@ -1,4 +1,4 @@
-import streamlit as st  # Исправлено: добавил 'as'
+import streamlit as st
 
 st.set_page_config(
     page_title="ShelfControl",
@@ -9,21 +9,23 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght=400;500;600;700&family=DM+Mono:wght=400;500&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html, body, [class*="css"] {
+/* ─── ГЛОБАЛЬНЫЙ ТЁМНЫЙ ИНТЕРФЕЙС ─── */
+html, body, [class*="css"], [data-testid="stAppViewContainer"] {
     font-family: 'Space Grotesk', sans-serif !important;
-    background: #F5F0E8 !important;
+    background: #0E0E0C !important;
+    color: #F5F0E8 !important;
 }
 
 #MainMenu, footer, header { visibility: hidden; }
 [data-testid="stSidebarNav"] { display: none; }
 
-/* ─── SIDEBAR ─── */
+/* ─── БОКОВОЕ МЕНЮ ─── */
 [data-testid="stSidebar"] {
-    background: #1C1C1A !important;
+    background: #161614 !important;
     border-right: none !important;
     min-width: 200px !important;
     max-width: 200px !important;
@@ -34,12 +36,11 @@ html, body, [class*="css"] {
 .sc-brand {
     padding: 32px 24px 4px;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 14px; 
+    font-size: 15px;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #F5F0E8;
-    white-space: nowrap; /* Запрещаем перенос букв */
 }
 .sc-brand-accent { color: #D4401A !important; }
 .sc-divline {
@@ -56,18 +57,18 @@ html, body, [class*="css"] {
     color: #5A5A52 !important;
 }
 
-/* ─── MAIN ─── */
-.main { background: #F5F0E8 !important; }
+/* ─── ГЛАВНЫЙ КОНТЕЙНЕР ─── */
+.main { background: #0E0E0C !important; }
 .main .block-container {
     padding: 3rem 3rem 2rem;
     max-width: 1080px;
-    background: #F5F0E8;
+    background: #0E0E0C;
 }
 
-/* ─── TYPOGRAPHY ─── */
+/* ─── ТИПОГРАФИКА ─── */
 h1, h2, h3 {
     font-family: 'Space Grotesk', sans-serif !important;
-    color: #1C1C1A !important;
+    color: #F5F0E8 !important;
     letter-spacing: -0.02em !important;
 }
 h1 { font-size: 28px !important; font-weight: 700 !important; }
@@ -88,12 +89,12 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     margin-bottom: 32px;
     line-height: 1.6;
 }
-.rule { border: none; border-top: 1px solid #DDD9CF; margin: 28px 0; }
+.rule { border: none; border-top: 1px solid #2E2E2C; margin: 28px 0; }
 
-/* ─── KPI CARDS ─── */
+/* ─── KPI КАРТОЧКИ ─── */
 .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 2px; }
 .kpi-card {
-    background: #EDEAE0;
+    background: #1C1C1A;
     padding: 22px 26px;
     position: relative;
     overflow: hidden;
@@ -103,7 +104,7 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     position: absolute;
     top: 0; left: 0;
     width: 3px; height: 100%;
-    background: #DDD9CF;
+    background: #2E2E2C;
 }
 .kpi-card.accent::before { background: #D4401A; }
 .kpi-lbl {
@@ -118,16 +119,16 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     font-family: 'DM Mono', monospace;
     font-size: 32px;
     font-weight: 500;
-    color: #1C1C1A;
+    color: #F5F0E8;
     line-height: 1;
 }
 .kpi-num.red { color: #D4401A; }
-.kpi-num.ok  { color: #2D6A4F; }
-.kpi-num.mid { color: #B45309; }
+.kpi-num.ok  { color: #A3E635; }
+.kpi-num.mid { color: #F59E0B; }
 
-/* ─── COMPLIANCE BAR ─── */
+/* ─── ИНДИКАТОР ВЫПОЛНЕНИЯ ─── */
 .comp-wrap {
-    background: #EDEAE0;
+    background: #1C1C1A;
     height: 3px;
     margin: 20px 0 6px;
     position: relative;
@@ -146,21 +147,21 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     margin-bottom: 24px;
 }
 
-/* ─── SUMMARY BOX ─── */
+/* ─── СВОДНЫЙ БОКС ─── */
 .sum-box {
     padding: 18px 22px;
     margin-bottom: 24px;
-    border-left: 3px solid #DDD9CF;
+    border-left: 3px solid #2E2E2C;
     font-size: 13.5px;
     line-height: 1.7;
-    color: #3A3A36;
-    background: #EDEAE0;
+    color: #E5E5E0;
+    background: #1C1C1A;
 }
-.sum-box.ok  { border-left-color: #2D6A4F; }
-.sum-box.mid { border-left-color: #B45309; }
+.sum-box.ok  { border-left-color: #A3E635; }
+.sum-box.mid { border-left-color: #F59E0B; }
 .sum-box.bad { border-left-color: #D4401A; }
 
-/* ─── VIOLATIONS ─── */
+/* ─── НАРУШЕНИЯ ─── */
 .viol-lbl {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
@@ -171,17 +172,17 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 }
 .viol-row {
     font-size: 13px;
-    color: #1C1C1A;
+    color: #F5F0E8;
     padding: 11px 16px;
     margin-bottom: 4px;
-    background: #EDEAE0;
+    background: #1C1C1A;
     border-left: 2px solid #D4401A;
     line-height: 1.5;
 }
 
-/* ─── SHELF CARDS ─── */
+/* ─── КАРТОЧКИ ПОЛОК ─── */
 .shelf-wrap {
-    background: #EDEAE0;
+    background: #1C1C1A;
     margin-bottom: 4px;
 }
 .shelf-head {
@@ -189,12 +190,12 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #DDD9CF;
+    border-bottom: 1px solid #2E2E2C;
 }
 .shelf-title {
     font-size: 13px;
     font-weight: 600;
-    color: #1C1C1A;
+    color: #F5F0E8;
     letter-spacing: 0.01em;
 }
 .shelf-body { padding: 16px 20px; }
@@ -208,9 +209,9 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 }
 .prod-item {
     font-size: 13px;
-    color: #3A3A36;
+    color: #E5E5E0;
     padding: 4px 0;
-    border-bottom: 1px solid #DDD9CF;
+    border-bottom: 1px solid #2E2E2C;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -223,7 +224,7 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     min-width: 18px;
 }
 
-/* status chips */
+/* Статусы и теги */
 .chip {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
@@ -232,9 +233,9 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     padding: 3px 8px;
     border: 1px solid currentColor;
 }
-.chip-ok  { color: #2D6A4F; }
+.chip-ok  { color: #A3E635; }
 .chip-bad { color: #D4401A; }
-.chip-mid { color: #B45309; }
+.chip-mid { color: #F59E0B; }
 
 .tag-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
 .tag {
@@ -244,8 +245,8 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     letter-spacing: 0.06em;
 }
 .tag-miss  { background: transparent; border: 1px solid #D4401A; color: #D4401A; }
-.tag-extra { background: transparent; border: 1px solid #B45309; color: #B45309; }
-.tag-ok    { background: transparent; border: 1px solid #2D6A4F; color: #2D6A4F; }
+.tag-extra { background: transparent; border: 1px solid #F59E0B; color: #F59E0B; }
+.tag-ok    { background: transparent; border: 1px solid #A3E635; color: #A3E635; }
 .tag-note  { background: transparent; border: 1px solid #8C8C7A; color: #8C8C7A; }
 
 .wrong-note {
@@ -256,28 +257,28 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     font-style: italic;
 }
 
-/* ─── INPUTS ─── */
+/* ─── ИНПУТЫ И КВАДРАТИКИ (ИСПРАВЛЕНО НА ТЕМНЫЕ) ─── */
 .stTextInput input, .stNumberInput input {
-    background: #EDEAE0 !important;
-    border: 1px solid #DDD9CF !important;
+    background: #1C1C1A !important;
+    border: 1px solid #2E2E2C !important;
     border-radius: 0 !important;
     font-family: 'Space Grotesk', sans-serif !important;
     font-size: 13.5px !important;
-    color: #1C1C1A !important;
+    color: #F5F0E8 !important;
     padding: 10px 14px !important;
 }
 .stTextInput input:focus, .stNumberInput input:focus {
-    border-color: #1C1C1A !important;
+    border-color: #D4401A !important;
     box-shadow: none !important;
     outline: none !important;
 }
 label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
 
-/* ─── BUTTON ─── */
+/* ─── КНОПКИ ─── */
 .stButton > button {
     background: #1C1C1A !important;
     color: #F5F0E8 !important;
-    border: none !important;
+    border: 1px solid #2E2E2C !important;
     border-radius: 0 !important;
     font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 600 !important;
@@ -287,44 +288,45 @@ label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0
     text-transform: uppercase !important;
     transition: background .15s !important;
 }
-.stButton > button:hover { background: #D4401A !important; }
-.stButton > button:disabled { background: #DDD9CF !important; color: #8C8C7A !important; }
+.stButton > button:hover { background: #D4401A !important; border-color: #D4401A !important; }
+.stButton > button:disabled { background: #161614 !important; color: #5A5A52 !important; border-color: #2E2E2C !important; }
 
-/* download button */
 .stDownloadButton > button {
     background: transparent !important;
-    color: #1C1C1A !important;
-    border: 1px solid #1C1C1A !important;
+    color: #F5F0E8 !important;
+    border: 1px solid #2E2E2C !important;
     border-radius: 0 !important;
     font-family: 'DM Mono', monospace !important;
     font-size: 11px !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
+    padding: 9px 18px !important;
 }
-.stDownloadButton > button:hover { background: #1C1C1A !important; color: #F5F0E8 !important; }
+.stDownloadButton > button:hover { background: #F5F0E8 !important; color: #0E0E0C !important; }
 
-/* ─── FILE UPLOADER ─── */
+/* ─── ЗАГРУЗЧИК ФАЙЛОВ ─── */
 [data-testid="stFileUploader"] {
     border: 1px dashed #8C8C7A !important;
     border-radius: 0 !important;
-    background: #EDEAE0 !important;
+    background: #1C1C1A !important;
     padding: 12px !important;
 }
+[data-testid="stFileUploader"] * { color: #F5F0E8 !important; }
 
-/* ─── EXPANDER ─── */
+/* ─── КОНТЕЙНЕРЫ / ЭКСПАНДЕРЫ (ИСПРАВЛЕНО НА ТЕМНЫЕ) ─── */
 div[data-testid="stExpander"] {
-    border: 1px solid #DDD9CF !important;
+    border: 1px solid #2E2E2C !important;
     border-radius: 0 !important;
-    background: #EDEAE0 !important;
+    background: #1C1C1A !important;
 }
 div[data-testid="stExpander"] summary {
     font-family: 'Space Grotesk', sans-serif !important;
     font-size: 13px !important;
     font-weight: 500 !important;
-    color: #1C1C1A !important;
+    color: #F5F0E8 !important;
 }
 
-/* ─── RADIO (nav) ─── */
+/* ─── РАДИОКНОПКИ НАВИГАЦИИ ─── */
 [data-testid="stRadio"] > div { gap: 0 !important; }
 [data-testid="stRadio"] label {
     font-family: 'Space Grotesk', sans-serif !important;
@@ -344,25 +346,35 @@ div[data-testid="stExpander"] summary {
     border-left-color: #D4401A !important;
 }
 
-/* alerts */
-.stAlert { border-radius: 0 !important; }
+/* Перехват инлайн-стилей темного текста из других файлов */
+div[style*="color: #3A3A36"], div[style*="color:#3A3A36"] { color: #E5E5E0 !important; }
+div[style*="color: #1C1C1A"], div[style*="color:#1C1C1A"] { color: #F5F0E8 !important; }
+div[style*="border-bottom: 1px solid #DDD9CF"], div[style*="border-bottom:1px solid #DDD9CF"] { border-bottom-color: #2E2E2C !important; }
+div[style*="border-top: 1px solid #DDD9CF"] { border-top-color: #2E2E2C !important; }
+div[style*="border-left: 2px solid #DDD9CF"] { border-left-color: #2E2E2C !important; }
 
-/* spinner */
+/* Уведомления */
+.stAlert { border-radius: 0 !important; background-color: #1C1C1A !important; color: #F5F0E8 !important; border: 1px solid #2E2E2C !important; }
+
+/* Спиннер */
 .stSpinner { color: #D4401A !important; }
 
-/* metric */
-[data-testid="stMetric"] { background: #EDEAE0 !important; padding: 16px 20px !important; }
+/* Метрики */
+[data-testid="stMetric"] { background: #1C1C1A !important; padding: 16px 20px !important; }
 [data-testid="stMetricLabel"] { font-family: 'DM Mono', monospace !important; font-size: 10px !important; letter-spacing: 0.15em !important; text-transform: uppercase !important; color: #8C8C7A !important; }
-[data-testid="stMetricValue"] { font-family: 'DM Mono', monospace !important; font-size: 28px !important; color: #1C1C1A !important; }
+[data-testid="stMetricValue"] { font-family: 'DM Mono', monospace !important; font-size: 28px !important; color: #F5F0E8 !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# Логотип приложения (красиво стоит в одну строку)
+# Sidebar
 st.sidebar.markdown('<div class="sc-brand">Shelf<span class="sc-brand-accent">Control</span></div>', unsafe_allow_html=True)
 st.sidebar.markdown('<hr class="sc-divline">', unsafe_allow_html=True)
+st.sidebar.markdown('<div class="sc-nav-section">Разделы</div>', unsafe_allow_html=True)
 
-# Меню навигации без лишних заголовков
 page = st.sidebar.radio("", ["Планограмма", "Анализ", "История"], label_visibility="collapsed")
+
+st.sidebar.markdown('<hr class="sc-divline" style="margin-top:auto">', unsafe_allow_html=True)
+st.sidebar.markdown('<div style="padding:16px 24px;font-family:\'DM Mono\',monospace;font-size:10px;color:#8C8C7A;letter-spacing:0.1em">v1.0 / 2026</div>', unsafe_allow_html=True)
 
 if page == "Планограмма":
     from pages import planogram
