@@ -36,12 +36,14 @@ html, body, [class*="css"], [data-testid="stAppViewContainer"] {
 .sc-brand {
     padding: 32px 24px 4px;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 14px;
+    font-size: 14px; /* Немного уменьшили для идеального выравнивания */
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #F5F0E8;
-}
+    white-space: nowrap;
+    
+    
 .sc-brand-accent { color: #D4401A !important; }
 .sc-divline {
     margin: 16px 24px;
