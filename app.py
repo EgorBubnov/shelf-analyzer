@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit st
 
 st.set_page_config(
     page_title="ShelfControl",
@@ -15,50 +15,37 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'Space Grotesk', sans-serif !important;
-    background: #0E0E10 !important;
-    color: #E4E4E7 !important;
+    background: #F5F0E8 !important;
 }
 
-#MainMenu, footer { visibility: hidden; }
-[data-testid="stDecoration"] { display: none !important; }
+#MainMenu, footer, header { visibility: hidden; }
 [data-testid="stSidebarNav"] { display: none; }
 
-[data-testid="stHeader"] {
-    background: transparent !important;
-}
-
-[data-testid="collapsedControl"] {
-    color: #FFFFFF !important;
-    background: #16161A !important;
-    border-radius: 4px;
-    padding: 4px;
-    margin-left: 10px;
-}
-
+/* ─── SIDEBAR ─── */
 [data-testid="stSidebar"] {
-    background: #111113 !important;
-    border-right: 1px solid #1F1F23 !important;
+    background: #1C1C1A !important;
+    border-right: none !important;
     min-width: 200px !important;
     max-width: 200px !important;
 }
 [data-testid="stSidebar"] > div { padding: 0 !important; }
-[data-testid="stSidebar"] * { color: #E4E4E7 !important; }
+[data-testid="stSidebar"] * { color: #F5F0E8 !important; }
 
 .sc-brand {
     padding: 32px 24px 4px;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
+    font-size: 14px; /* Немного уменьшили для идеального выравнивания */
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #FFFFFF;
+    color: #F5F0E8;
+    white-space: nowrap; /* Запрещаем перенос букв на новую строку */
 }
-.sc-brand-accent { color: #E24A24 !important; }
-
+.sc-brand-accent { color: #D4401A !important; }
 .sc-divline {
     margin: 16px 24px;
     border: none;
-    border-top: 1px solid #1F1F23;
+    border-top: 1px solid #2E2E2C;
 }
 .sc-nav-section {
     padding: 0 24px 8px;
@@ -66,19 +53,21 @@ html, body, [class*="css"] {
     font-size: 9px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #52525B !important;
+    color: #5A5A52 !important;
 }
 
-.main { background: #0E0E10 !important; }
+/* ─── MAIN ─── */
+.main { background: #F5F0E8 !important; }
 .main .block-container {
     padding: 3rem 3rem 2rem;
     max-width: 1080px;
-    background: #0E0E10;
+    background: #F5F0E8;
 }
 
+/* ─── TYPOGRAPHY ─── */
 h1, h2, h3 {
     font-family: 'Space Grotesk', sans-serif !important;
-    color: #FFFFFF !important;
+    color: #1C1C1A !important;
     letter-spacing: -0.02em !important;
 }
 h1 { font-size: 28px !important; font-weight: 700 !important; }
@@ -89,21 +78,22 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #71717A;
+    color: #8C8C7A;
     margin-bottom: 8px;
 }
 .page-desc {
     font-size: 14px;
-    color: #A1A1AA;
+    color: #8C8C7A;
     margin-top: -8px;
     margin-bottom: 32px;
     line-height: 1.6;
 }
-.rule { border: none; border-top: 1px solid #1F1F23; margin: 28px 0; }
+.rule { border: none; border-top: 1px solid #DDD9CF; margin: 28px 0; }
 
+/* ─── KPI CARDS ─── */
 .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 2px; }
 .kpi-card {
-    background: #16161A;
+    background: #EDEAE0;
     padding: 22px 26px;
     position: relative;
     overflow: hidden;
@@ -113,31 +103,32 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     position: absolute;
     top: 0; left: 0;
     width: 3px; height: 100%;
-    background: #27272A;
+    background: #DDD9CF;
 }
-.kpi-card.accent::before { background: #E24A24; }
+.kpi-card.accent::before { background: #D4401A; }
 .kpi-lbl {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #71717A;
+    color: #8C8C7A;
     margin-bottom: 10px;
 }
 .kpi-num {
     font-family: 'DM Mono', monospace;
     font-size: 32px;
     font-weight: 500;
-    color: #FFFFFF;
+    color: #1C1C1A;
     line-height: 1;
 }
-.kpi-num.red { color: #FF453A; }
-.kpi-num.ok  { color: #32D74B; }
-.kpi-num.mid { color: #FF9F0A; }
+.kpi-num.red { color: #D4401A; }
+.kpi-num.ok  { color: #2D6A4F; }
+.kpi-num.mid { color: #B45309; }
 
-...comp-wrap {
-    background: #16161A;
-    height: 4px;
+/* ─── COMPLIANCE BAR ─── */
+.comp-wrap {
+    background: #EDEAE0;
+    height: 3px;
     margin: 20px 0 6px;
     position: relative;
 }
@@ -150,59 +141,60 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 .comp-label {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
-    color: #71717A;
+    color: #8C8C7A;
     text-align: right;
     margin-bottom: 24px;
 }
 
+/* ─── SUMMARY BOX ─── */
 .sum-box {
     padding: 18px 22px;
     margin-bottom: 24px;
-    border-left: 3px solid #27272A;
+    border-left: 3px solid #DDD9CF;
     font-size: 13.5px;
     line-height: 1.7;
-    color: #E4E4E7;
-    background: #16161A;
+    color: #3A3A36;
+    background: #EDEAE0;
 }
-.sum-box.ok  { border-left-color: #32D74B; }
-.sum-box.mid { border-left-color: #FF9F0A; }
-.sum-box.bad { border-left-color: #FF453A; }
+.sum-box.ok  { border-left-color: #2D6A4F; }
+.sum-box.mid { border-left-color: #B45309; }
+.sum-box.bad { border-left-color: #D4401A; }
 
+/* ─── VIOLATIONS ─── */
 .viol-lbl {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #FF453A;
+    color: #D4401A;
     margin-bottom: 10px;
 }
 .viol-row {
     font-size: 13px;
-    color: #E4E4E7;
+    color: #1C1C1A;
     padding: 11px 16px;
     margin-bottom: 4px;
-    background: #16161A;
-    border-left: 2px solid #FF453A;
+    background: #EDEAE0;
+    border-left: 2px solid #D4401A;
     line-height: 1.5;
 }
 
+/* ─── SHELF CARDS ─── */
 .shelf-wrap {
-    background: #16161A;
+    background: #EDEAE0;
     margin-bottom: 4px;
-    border: 1px solid #1F1F23;
 }
 .shelf-head {
     padding: 13px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #1F1F23;
-    background: #1A1A1E;
+    border-bottom: 1px solid #DDD9CF;
 }
 .shelf-title {
     font-size: 13px;
     font-weight: 600;
-    color: #FFFFFF;
+    color: #1C1C1A;
     letter-spacing: 0.01em;
 }
 .shelf-body { padding: 16px 20px; }
@@ -211,14 +203,14 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     font-size: 9px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #71717A;
+    color: #8C8C7A;
     margin-bottom: 10px;
 }
 .prod-item {
     font-size: 13px;
-    color: #E4E4E7;
-    padding: 6px 0;
-    border-bottom: 1px solid #1F1F23;
+    color: #3A3A36;
+    padding: 4px 0;
+    border-bottom: 1px solid #DDD9CF;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -227,10 +219,11 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 .prod-idx {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
-    color: #71717A;
+    color: #8C8C7A;
     min-width: 18px;
 }
 
+/* status chips */
 .chip {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
@@ -239,9 +232,9 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     padding: 3px 8px;
     border: 1px solid currentColor;
 }
-.chip-ok  { color: #32D74B; }
-.chip-bad { color: #FF453A; }
-.chip-mid { color: #FF9F0A; }
+.chip-ok  { color: #2D6A4F; }
+.chip-bad { color: #D4401A; }
+.chip-mid { color: #B45309; }
 
 .tag-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
 .tag {
@@ -250,38 +243,40 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     padding: 3px 9px;
     letter-spacing: 0.06em;
 }
-.tag-miss  { background: transparent; border: 1px solid #FF453A; color: #FF453A; }
-.tag-extra { background: transparent; border: 1px solid #FF9F0A; color: #FF9F0A; }
-.tag-ok    { background: transparent; border: 1px solid #32D74B; color: #32D74B; }
-.tag-note  { background: transparent; border: 1px solid #71717A; color: #71717A; }
+.tag-miss  { background: transparent; border: 1px solid #D4401A; color: #D4401A; }
+.tag-extra { background: transparent; border: 1px solid #B45309; color: #B45309; }
+.tag-ok    { background: transparent; border: 1px solid #2D6A4F; color: #2D6A4F; }
+.tag-note  { background: transparent; border: 1px solid #8C8C7A; color: #8C8C7A; }
 
 .wrong-note {
     font-size: 12px;
-    color: #71717A;
+    color: #8C8C7A;
     margin-top: 10px;
     line-height: 1.6;
     font-style: italic;
 }
 
+/* ─── INPUTS ─── */
 .stTextInput input, .stNumberInput input {
-    background: #16161A !important;
-    border: 1px solid #1F1F23 !important;
+    background: #EDEAE0 !important;
+    border: 1px solid #DDD9CF !important;
     border-radius: 0 !important;
     font-family: 'Space Grotesk', sans-serif !important;
     font-size: 13.5px !important;
-    color: #FFFFFF !important;
+    color: #1C1C1A !important;
     padding: 10px 14px !important;
 }
 .stTextInput input:focus, .stNumberInput input:focus {
-    border-color: #E24A24 !important;
+    border-color: #1C1C1A !important;
     box-shadow: none !important;
     outline: none !important;
 }
-label { font-size: 11px !important; color: #71717A !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
+label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
 
+/* ─── BUTTON ─── */
 .stButton > button {
-    background: #E24A24 !important;
-    color: #FFFFFF !important;
+    background: #1C1C1A !important;
+    color: #F5F0E8 !important;
     border: none !important;
     border-radius: 0 !important;
     font-family: 'Space Grotesk', sans-serif !important;
@@ -292,46 +287,49 @@ label { font-size: 11px !important; color: #71717A !important; letter-spacing: 0
     text-transform: uppercase !important;
     transition: background .15s !important;
 }
-.stButton > button:hover { background: #FF5733 !important; }
-.stButton > button:disabled { background: #1F1F23 !important; color: #71717A !important; }
+.stButton > button:hover { background: #D4401A !important; }
+.stButton > button:disabled { background: #DDD9CF !important; color: #8C8C7A !important; }
 
+/* download button */
 .stDownloadButton > button {
     background: transparent !important;
-    color: #FFFFFF !important;
-    border: 1px solid #1F1F23 !important;
+    color: #1C1C1A !important;
+    border: 1px solid #1C1C1A !important;
     border-radius: 0 !important;
     font-family: 'DM Mono', monospace !important;
     font-size: 11px !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
-    padding: 9px 18px !important;
 }
-.stDownloadButton > button:hover { background: #FFFFFF !important; color: #0E0E10 !important; }
+.stDownloadButton > button:hover { background: #1C1C1A !important; color: #F5F0E8 !important; }
 
+/* ─── FILE UPLOADER ─── */
 [data-testid="stFileUploader"] {
-    border: 1px dashed #71717A !important;
+    border: 1px dashed #8C8C7A !important;
     border-radius: 0 !important;
-    background: #16161A !important;
+    background: #EDEAE0 !important;
     padding: 12px !important;
 }
 
+/* ─── EXPANDER ─── */
 div[data-testid="stExpander"] {
-    border: 1px solid #1F1F23 !important;
+    border: 1px solid #DDD9CF !important;
     border-radius: 0 !important;
-    background: #16161A !important;
+    background: #EDEAE0 !important;
 }
 div[data-testid="stExpander"] summary {
     font-family: 'Space Grotesk', sans-serif !important;
     font-size: 13px !important;
     font-weight: 500 !important;
-    color: #FFFFFF !important;
+    color: #1C1C1A !important;
 }
 
+/* ─── RADIO (nav) ─── */
 [data-testid="stRadio"] > div { gap: 0 !important; }
 [data-testid="stRadio"] label {
     font-family: 'Space Grotesk', sans-serif !important;
     font-size: 13px !important;
-    color: #A1A1AA !important;
+    color: #8C8C7A !important;
     padding: 10px 24px !important;
     letter-spacing: 0.02em !important;
     text-transform: none !important;
@@ -339,32 +337,34 @@ div[data-testid="stExpander"] summary {
     transition: all .15s !important;
     display: block !important;
 }
-[data-testid="stRadio"] label:hover { color: #FFFFFF !important; background: #1C1C21 !important; }
+[data-testid="stRadio"] label:hover { color: #F5F0E8 !important; background: #2E2E2C !important; }
 [data-baseweb="radio"][aria-checked="true"] + div label,
 [data-testid="stRadio"] [aria-checked="true"] ~ label {
-    color: #FFFFFF !important;
-    border-left-color: #E24A24 !important;
-    background: #16161A !important;
+    color: #F5F0E8 !important;
+    border-left-color: #D4401A !important;
 }
 
-.stAlert { border-radius: 0 !important; background-color: #16161A !important; border: 1px solid #1F1F23 !important; }
+/* alerts */
+.stAlert { border-radius: 0 !important; }
 
-.stSpinner { color: #E24A24 !important; }
+/* spinner */
+.stSpinner { color: #D4401A !important; }
 
-[data-testid="stMetric"] { background: #16161A !important; padding: 16px 20px !important; border: 1px solid #1F1F23 !important; }
-[data-testid="stMetricLabel"] { font-family: 'DM Mono', monospace !important; font-size: 10px !important; letter-spacing: 0.15em !important; text-transform: uppercase !important; color: #71717A !important; }
-[data-testid="stMetricValue"] { font-family: 'DM Mono', monospace !important; font-size: 28px !important; color: #FFFFFF !important; }
+/* metric */
+[data-testid="stMetric"] { background: #EDEAE0 !important; padding: 16px 20px !important; }
+[data-testid="stMetricLabel"] { font-family: 'DM Mono', monospace !important; font-size: 10px !important; letter-spacing: 0.15em !important; text-transform: uppercase !important; color: #8C8C7A !important; }
+[data-testid="stMetricValue"] { font-family: 'DM Mono', monospace !important; font-size: 28px !important; color: #1C1C1A !important; }
 </style>
 """, unsafe_allow_html=True)
 
+# Логотип приложения (теперь с nowrap и адаптированным размером)
 st.sidebar.markdown('<div class="sc-brand">Shelf<span class="sc-brand-accent">Control</span></div>', unsafe_allow_html=True)
 st.sidebar.markdown('<hr class="sc-divline">', unsafe_allow_html=True)
-st.sidebar.markdown('<div class="sc-nav-section">Разделы</div>', unsafe_allow_html=True)
 
+# Переключатель разделов меню (строка "Разделы" успешно удалена)
 page = st.sidebar.radio("", ["Планограмма", "Анализ", "История"], label_visibility="collapsed")
 
-st.sidebar.markdown('<hr class="sc-divline" style="margin-top:auto">', unsafe_allow_html=True)
-st.sidebar.markdown('<div style="padding:16px 24px;font-family:\'DM Mono\',monospace;font-size:10px;color:#52525B;letter-spacing:0.1em">v1.0 / 2026</div>', unsafe_allow_html=True)
+# Нижний футер с версией полностью очищен
 
 if page == "Планограмма":
     from pages import planogram
