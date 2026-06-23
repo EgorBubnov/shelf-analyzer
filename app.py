@@ -1,4 +1,4 @@
-import streamlit st
+import streamlit as st  # Исправлено: добавил 'as'
 
 st.set_page_config(
     page_title="ShelfControl",
@@ -34,12 +34,12 @@ html, body, [class*="css"] {
 .sc-brand {
     padding: 32px 24px 4px;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 14px; /* Немного уменьшили для идеального выравнивания */
+    font-size: 14px; 
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #F5F0E8;
-    white-space: nowrap; /* Запрещаем перенос букв на новую строку */
+    white-space: nowrap; /* Запрещаем перенос букв */
 }
 .sc-brand-accent { color: #D4401A !important; }
 .sc-divline {
@@ -357,14 +357,12 @@ div[data-testid="stExpander"] summary {
 </style>
 """, unsafe_allow_html=True)
 
-# Логотип приложения (теперь с nowrap и адаптированным размером)
+# Логотип приложения (красиво стоит в одну строку)
 st.sidebar.markdown('<div class="sc-brand">Shelf<span class="sc-brand-accent">Control</span></div>', unsafe_allow_html=True)
 st.sidebar.markdown('<hr class="sc-divline">', unsafe_allow_html=True)
 
-# Переключатель разделов меню (строка "Разделы" успешно удалена)
+# Меню навигации без лишних заголовков
 page = st.sidebar.radio("", ["Планограмма", "Анализ", "История"], label_visibility="collapsed")
-
-# Нижний футер с версией полностью очищен
 
 if page == "Планограмма":
     from pages import planogram
