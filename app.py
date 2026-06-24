@@ -128,7 +128,7 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     margin-bottom: 32px;
     line-height: 1.6;
 }
-.rule { border: none; border-top: 1px solid #1c1c1a; margin: 28px 0; }
+.rule { border: none; border-top: 1px solid #DDD9CF; margin: 28px 0; }
 
 /* ─── KPI CARDS ─── */
 .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 2px; }
@@ -143,7 +143,7 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     position: absolute;
     top: 0; left: 0;
     width: 3px; height: 100%;
-    background: #1c1c1a;
+    background: #DDD9CF;
 }
 .kpi-card.accent::before { background: #D4401A; }
 .kpi-lbl {
@@ -168,7 +168,7 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 /* ─── INPUTS ─── */
 .stTextInput input, .stNumberInput input {
     background: #EDEAE0 !important;
-    border: 1px solid #1c1c1a !important;
+    border: 1px solid #DDD9CF !important;
     border-radius: 0 !important;
     font-family: 'Space Grotesk', sans-serif !important;
     font-size: 13.5px !important;
@@ -280,7 +280,7 @@ button[data-testid="baseButton-primary"]:active {
 
 /* ─── EXPANDER (полки) ─── */
 div[data-testid="stExpander"] {
-    border: 1px solid #1C1C1A !important;
+    border: 1px solid #DDD9CF !important;
     border-radius: 12px !important;
     background: rgba(237, 234, 224, 0.85) !important;
     overflow: hidden !important;
@@ -288,25 +288,28 @@ div[data-testid="stExpander"] {
 div[data-testid="stExpander"] summary {
     font-family: "Space Grotesk", sans-serif !important;
     font-size: 13.5px !important;
-    font-weight: 500 !important;
-    color: #1C1C1A !important;
-    background: transparent !important;
-    background-color: transparent !important;
+    font-weight: 600 !important;
+    color: #F5F0E8 !important;
+    background: #1C1C1A !important;
+    background-color: #1C1C1A !important;
     border-radius: 0 !important;
     padding: 12px 16px !important;
 }
 div[data-testid="stExpander"] summary:hover,
 div[data-testid="stExpander"] summary:focus,
 div[data-testid="stExpander"] summary:active {
-    background: transparent !important;
-    background-color: transparent !important;
-    color: #1C1C1A !important;
+    background: #1C1C1A !important;
+    background-color: #1C1C1A !important;
+    color: #F5F0E8 !important;
     outline: none !important;
     box-shadow: none !important;
 }
 div[data-testid="stExpander"] summary svg {
-    fill: #1C1C1A !important;
-    color: #1C1C1A !important;
+    fill: #F5F0E8 !important;
+    color: #F5F0E8 !important;
+}
+div[data-testid="stExpander"] summary p {
+    color: #F5F0E8 !important;
 }
 .stSpinner { color: #D4401A !important; }
 
