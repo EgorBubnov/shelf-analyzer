@@ -128,7 +128,7 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     margin-bottom: 32px;
     line-height: 1.6;
 }
-.rule { border: none; border-top: 1px solid #DDD9CF; margin: 28px 0; }
+.rule { border: none; border-top: 1px solid #1c1c1a; margin: 28px 0; }
 
 /* ─── KPI CARDS ─── */
 .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 2px; }
