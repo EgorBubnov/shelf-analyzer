@@ -177,21 +177,31 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 }
 label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
 
-/* ─── BUTTON ─── */
+/* ─── КНОПКИ (СКРУГЛЕНИЕ И ФИКС НАВЕДЕНИЯ) ─── */
 .stButton > button {
     background: #1C1C1A !important;
     color: #F5F0E8 !important;
     border: none !important;
-    border-radius: 0 !important;
+    border-radius: 12px !important; /* Делает кнопки более скругленными (можно увеличить до 20px для эффекта капсулы) */
     font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 600 !important;
     font-size: 13px !important;
     letter-spacing: 0.06em !important;
     padding: 11px 24px !important;
     text-transform: uppercase !important;
-    transition: background .15s !important;
+    transition: none !important; /* Убираем анимацию перехода */
 }
-.stButton > button:hover { background: #D4401A !important; }
+
+/* Полностью блокируем засветление и изменение цвета при наведении/фокусе */
+.stButton > button:hover, 
+.stButton > button:active, 
+.stButton > button:focus {
+    background: #1C1C1A !important;
+    color: #F5F0E8 !important;
+    border: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+}
 
 /* ─── FILE UPLOADER ─── */
 [data-testid="stFileUploader"] {
@@ -297,6 +307,7 @@ st.sidebar.markdown('<div class="sc-brand">Shelf<span class="sc-brand-accent">Co
 
 
 page = st.sidebar.radio("", ["Планограмма", "Анализ", "История"], label_visibility="collapsed")
+
 
 
 # Маршрутизация страниц с защитой от сбоев путей окружения

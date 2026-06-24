@@ -3,7 +3,7 @@ import json
 
 
 def show():
-    st.markdown('<div class="page-eyebrow">Конфигурация</div>', unsafe_allow_html=True)
+    
     st.title("Планограмма")
     st.markdown('<p class="page-desc">Задайте эталонный порядок товаров на каждой полке. Именно с этим стандартом будет сравниваться фото.</p>', unsafe_allow_html=True)
 
