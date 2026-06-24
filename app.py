@@ -1,8 +1,10 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
-import streamlit as st
 import base64
+import streamlit as st
+
+# Железобетонная фиксация путей, чтобы ошибка ModuleNotFoundError больше не появлялась
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 st.set_page_config(
     page_title="ShelfControl",
@@ -12,15 +14,15 @@ st.set_page_config(
 )
 
 # Функция динамической конвертации изображений в Base64
-def get_base64_background(image_path):
+def get_base64_image(image_path):
     if os.path.exists(image_path):
         with open(image_path, "rb") as f:
             data = f.read()
         return base64.b64encode(data).decode()
     return None
 
-main_bg_base64 = get_base64_background("epic bakground.jpg")
-sidebar_bg_base64 = get_base64_background("Black Fignya.jpg")
+sidebar_bg = get_base64_image("Black Fignya.jpg")
+main_bg = get_base64_image("epic bakground.jpg")
 
 # Инжектим базовые стили приложения
 st.markdown("""
@@ -278,12 +280,12 @@ label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0
 </style>
 """, unsafe_allow_html=True)
 
-# Динамическое применение картинок, если файлы на месте
-if main_bg_base64:
+# Динамическое применение основного фона
+if main_bg:
     st.markdown(f"""
     <style>
     [data-testid="stAppViewContainer"] {{
-        background-image: url("data:image/jpeg;base64,{main_bg_base64}") !important;
+        background-image: url("data:image/jpeg;base64,{main_bg}") !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
@@ -297,11 +299,12 @@ if main_bg_base64:
 else:
     st.markdown('<style>[data-testid="stAppViewContainer"] { background-color: #F5F0E8 !important; }</style>', unsafe_allow_html=True)
 
-if sidebar_bg_base64:
+# Динамическое применение изображения на фон левого сайдбара
+if sidebar_bg:
     st.markdown(f"""
     <style>
     [data-testid="stSidebar"] {{
-        background-image: url("data:image/jpeg;base64,{sidebar_bg_base64}") !important;
+        background-image: url("data:image/jpeg;base64,{sidebar_bg}") !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
@@ -312,15 +315,17 @@ else:
     st.markdown('<style>[data-testid="stSidebar"] { background: #1C1C1A !important; }</style>', unsafe_allow_html=True)
 
 
-# Sidebar Content
+# Контент Сайдбара
 st.sidebar.markdown('<div class="sc-brand">Shelf<span class="sc-brand-accent">Control</span></div>', unsafe_allow_html=True)
 
-st.sidebar.markdown('<div class="sc-nav-section">Разделы</div>', unsafe_allow_html=True)
+
 
 page = st.sidebar.radio("", ["Планограмма", "Анализ", "История"], label_visibility="collapsed")
 
 
 
+
+# Маршрутизация страниц из пакета pages
 if page == "Планограмма":
     from pages import planogram
     planogram.show()
@@ -328,3 +333,5 @@ elif page == "Анализ":
     from pages import analyze
     analyze.show()
 elif page == "История":
+    from pages import history
+    history.show()
