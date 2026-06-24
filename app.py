@@ -313,6 +313,13 @@ div[data-testid="stExpander"] summary p {
 }
 .stSpinner { color: #D4401A !important; }
 
+/* ─── ТЕКСТ ВНУТРИ EXPANDER ─── */
+div[data-testid="stExpander"] [data-testid="stMarkdownContainer"] p,
+div[data-testid="stExpander"] [data-testid="stMarkdownContainer"] span,
+div[data-testid="stExpander"] [data-testid="stMarkdownContainer"] * {
+    color: #1C1C1A !important;
+}
+
 /* metric */
 [data-testid="stMetric"] { background: #EDEAE0 !important; padding: 16px 20px !important; }
 [data-testid="stMetricLabel"] { font-family: 'DM Mono', monospace !important; font-size: 10px !important; letter-spacing: 0.15em !important; text-transform: uppercase !important; color: #8C8C7A !important; }
