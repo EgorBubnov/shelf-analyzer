@@ -56,7 +56,7 @@ st.markdown("""
     transform: none !important;
 }
 
-/* КРИТИЧЕСКИЙ ФИКС: Принудительно делаем все внутренние контейнеры 
+/* Принудительно делаем все внутренние контейнеры 
    сайдбара прозрачными, чтобы картинка фона пробилась наружу */
 [data-testid="stSidebar"] > div, 
 [data-testid="stSidebarContent"], 
@@ -201,12 +201,22 @@ label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0
     padding: 12px !important;
 }
 
-/* ─── RADIO (навигация в сайдбаре) ─── */
+/* ─── НАВИГАЦИЯ В САЙДБАРЕ (БЕЗ ФОНОВОЙ ПОДСВЕТКИ) ─── */
 [data-testid="stRadio"] {
     position: relative;
     z-index: 2;
 }
 [data-testid="stRadio"] > div { gap: 0 !important; }
+
+/* Уничтожаем подложки у внутренних элементов BaseWeb */
+[data-testid="stRadio"] [data-baseweb="radio"],
+[data-testid="stRadio"] [data-baseweb="radio"]:hover,
+[data-testid="stRadio"] div[role="radiogroup"] div {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Стили кнопок-лейблов */
 [data-testid="stRadio"] label {
     font-family: 'Space Grotesk', sans-serif !important;
     font-size: 13px !important;
@@ -215,15 +225,26 @@ label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0
     letter-spacing: 0.02em !important;
     text-transform: none !important;
     border-left: 2px solid transparent !important;
-    transition: all .15s !important;
+    transition: color .15s, border-color .15s !important;
     display: block !important;
+    background: transparent !important;
+    background-color: transparent !important;
 }
-[data-testid="stRadio"] label:hover { color: #F5F0E8 !important; background: rgba(255, 255, 255, 0.05) !important; }
+
+/* Эффект наведения — только изменение цвета текста, без белых плашек */
+[data-testid="stRadio"] label:hover { 
+    color: #F5F0E8 !important; 
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Активное состояние */
 [data-baseweb="radio"][aria-checked="true"] + div label,
 [data-testid="stRadio"] [aria-checked="true"] ~ label {
     color: #F5F0E8 !important;
     border-left-color: #D4401A !important;
-    background: rgba(255, 255, 255, 0.08) !important;
+    background: transparent !important;
+    background-color: transparent !important;
 }
 
 .stAlert { border-radius: 0 !important; }
@@ -236,30 +257,6 @@ label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown(
-    """
-    <style>
-    /* 1. Если вы используете st.radio для меню */
-    div[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover {
-        background-color: transparent !important;
-    }
-
-    /* 2. Если это стандартные ссылки навигации мультистраничного приложения */
-    div[data-testid="stSidebarNav"] a:hover {
-        background-color: transparent !important;
-    }
-    div[data-testid="stSidebarNavElement"]:hover {
-        background-color: transparent !important;
-    }
-
-    /* 3. На всякий случай для любых кастомных кликабельных элементов/кнопок в сайдбаре */
-    div[data-testid="stSidebar"] div[role="button"]:hover {
-        background-color: transparent !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 # Динамическое применение основного фонда
 if main_bg:
     st.markdown(f"""
@@ -297,10 +294,13 @@ else:
 
 # Контент Сайдбара
 st.sidebar.markdown('<div class="sc-brand">Shelf<span class="sc-brand-accent">Control</span></div>', unsafe_allow_html=True)
-
+st.sidebar.markdown('<hr class="sc-divline">', unsafe_allow_html=True)
+st.sidebar.markdown('<div class="sc-nav-section">Разделы</div>', unsafe_allow_html=True)
 
 page = st.sidebar.radio("", ["Планограмма", "Анализ", "История"], label_visibility="collapsed")
 
+st.sidebar.markdown('<hr class="sc-divline" style="margin-top:auto">', unsafe_allow_html=True)
+st.sidebar.markdown('<div style="padding:16px 24px;font-family:\'DM Mono\',monospace;font-size:10px;color:#8C8C7A;letter-spacing:0.1em;position:relative;z-index:2;">v1.0 / 2026</div>', unsafe_allow_html=True)
 
 
 # Маршрутизация страниц с защитой от сбоев путей окружения
