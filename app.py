@@ -178,35 +178,46 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
 
 /* ─── КНОПКИ (СКРУГЛЕНИЕ И ФИКС НАВЕДЕНИЯ) ─── */
-.stButton > button, 
+/* ─── ВСЕ КНОПКИ ─── */
+.stButton > button,
+.stDownloadButton > button,
 div[data-testid="stNumberInput"] button,
-button[data-testid="baseButton-secondary"] {
+button[data-testid="baseButton-secondary"],
+button[data-testid="baseButton-primary"] {
     background: #1C1C1A !important;
+    background-color: #1C1C1A !important;
     color: #F5F0E8 !important;
     border: none !important;
-    border-radius: 30px !important; /* Делает кнопки красивыми и более скругленными */
+    border-radius: 30px !important;
     font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 600 !important;
     font-size: 13px !important;
     letter-spacing: 0.06em !important;
     text-transform: uppercase !important;
-    transition: none !important;
+    transition: background-color 0.15s !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
-/* Полностью запрещаем кнопкам менять цвет или становиться белыми при любых условиях */
-.stButton > button:hover, 
-.stButton > button:active, 
+/* Hover — тёмно-красный */
+.stButton > button:hover,
+.stButton > button:active,
 .stButton > button:focus,
+.stButton > button:focus-visible,
+.stDownloadButton > button:hover,
+.stDownloadButton > button:active,
 div[data-testid="stNumberInput"] button:hover,
 div[data-testid="stNumberInput"] button:active,
-div[data-testid="stNumberInput"] button:focus,
 button[data-testid="baseButton-secondary"]:hover,
 button[data-testid="baseButton-secondary"]:active,
-button[data-testid="baseButton-secondary"]:focus {
-    background: #1C1C1A !important; /* Остается строго черным */
-    color: #F5F0E8 !important;       /* Текст остается светлым */
+button[data-testid="baseButton-primary"]:hover,
+button[data-testid="baseButton-primary"]:active {
+    background: #D4401A !important;
+    background-color: #D4401A !important;
+    color: #F5F0E8 !important;
     border: none !important;
     box-shadow: none !important;
+    outline: none !important;
     opacity: 1 !important;
 }
 
