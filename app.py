@@ -236,6 +236,30 @@ label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown(
+    """
+    <style>
+    /* 1. Если вы используете st.radio для меню */
+    div[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover {
+        background-color: transparent !important;
+    }
+
+    /* 2. Если это стандартные ссылки навигации мультистраничного приложения */
+    div[data-testid="stSidebarNav"] a:hover {
+        background-color: transparent !important;
+    }
+    div[data-testid="stSidebarNavElement"]:hover {
+        background-color: transparent !important;
+    }
+
+    /* 3. На всякий случай для любых кастомных кликабельных элементов/кнопок в сайдбаре */
+    div[data-testid="stSidebar"] div[role="button"]:hover {
+        background-color: transparent !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # Динамическое применение основного фонда
 if main_bg:
     st.markdown(f"""
