@@ -178,30 +178,38 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
 
 /* ─── КНОПКИ (СКРУГЛЕНИЕ И ФИКС НАВЕДЕНИЯ) ─── */
-.stButton > button {
+.stButton > button, 
+div[data-testid="stNumberInput"] button,
+button[data-testid="baseButton-secondary"] {
     background: #1C1C1A !important;
     color: #F5F0E8 !important;
     border: none !important;
-    border-radius: 12px !important; /* Делает кнопки более скругленными (можно увеличить до 20px для эффекта капсулы) */
+    border-radius: 30px !important; /* Делает кнопки красивыми и более скругленными */
     font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 600 !important;
     font-size: 13px !important;
     letter-spacing: 0.06em !important;
-    padding: 11px 24px !important;
     text-transform: uppercase !important;
-    transition: none !important; /* Убираем анимацию перехода */
+    transition: none !important;
 }
 
-/* Полностью блокируем засветление и изменение цвета при наведении/фокусе */
+/* Полностью запрещаем кнопкам менять цвет или становиться белыми при любых условиях */
 .stButton > button:hover, 
 .stButton > button:active, 
-.stButton > button:focus {
-    background: #1C1C1A !important;
-    color: #F5F0E8 !important;
+.stButton > button:focus,
+div[data-testid="stNumberInput"] button:hover,
+div[data-testid="stNumberInput"] button:active,
+div[data-testid="stNumberInput"] button:focus,
+button[data-testid="baseButton-secondary"]:hover,
+button[data-testid="baseButton-secondary"]:active,
+button[data-testid="baseButton-secondary"]:focus {
+    background: #1C1C1A !important; /* Остается строго черным */
+    color: #F5F0E8 !important;       /* Текст остается светлым */
     border: none !important;
     box-shadow: none !important;
     opacity: 1 !important;
 }
+
 
 /* ─── FILE UPLOADER ─── */
 [data-testid="stFileUploader"] {
