@@ -280,7 +280,7 @@ button[data-testid="baseButton-primary"]:active {
 
 /* ─── EXPANDER (полки) ─── */
 div[data-testid="stExpander"] {
-    border: 1px solid #DDD9CF !important;
+    border: 1px solid #1C1C1A !important;
     border-radius: 12px !important;
     background: rgba(237, 234, 224, 0.85) !important;
     overflow: hidden !important;
