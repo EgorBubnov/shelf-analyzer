@@ -3,7 +3,7 @@ import sys
 import base64
 import streamlit as st
 
-# Железобетонная фиксация путей, чтобы ошибка ModuleNotFoundError больше не появлялась
+# Страховка путей для импорта страниц из папки pages
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 st.set_page_config(
@@ -43,7 +43,7 @@ st.markdown("""
 #MainMenu, footer, header { visibility: hidden; }
 [data-testid="stSidebarNav"] { display: none; }
 
-/* Полностью скрываем кнопку управления боковой панелью (фиксируем её) */
+/* Полностью скрываем кнопку управления боковой панелью */
 [data-testid="stSidebarCollapseButton"] {
     display: none !important;
 }
@@ -55,7 +55,17 @@ st.markdown("""
     max-width: 200px !important;
     transform: none !important;
 }
-[data-testid="stSidebar"] > div { padding: 0 !important; }
+
+/* КРИТИЧЕСКИЙ ФИКС: Принудительно делаем все внутренние контейнеры 
+   сайдбара прозрачными, чтобы картинка фона пробилась наружу */
+[data-testid="stSidebar"] > div, 
+[data-testid="stSidebarContent"], 
+[data-testid="stSidebarUserContent"] {
+    background-color: transparent !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
 [data-testid="stSidebar"] * { color: #F5F0E8 !important; }
 
 .sc-brand {
@@ -155,60 +165,6 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 .kpi-num.ok  { color: #2D6A4F; }
 .kpi-num.mid { color: #B45309; }
 
-/* ─── COMPLIANCE BAR ─── */
-.comp-wrap {
-    background: #EDEAE0;
-    height: 3px;
-    margin: 20px 0 6px;
-    position: relative;
-}
-.comp-fill {
-    position: absolute;
-    top: 0; left: 0;
-    height: 100%;
-    transition: width .8s cubic-bezier(.4,0,.2,1);
-}
-.comp-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: #8C8C7A;
-    text-align: right;
-    margin-bottom: 24px;
-}
-
-/* ─── SUMMARY BOX ─── */
-.sum-box {
-    padding: 18px 22px;
-    margin-bottom: 24px;
-    border-left: 3px solid #DDD9CF;
-    font-size: 13.5px;
-    line-height: 1.7;
-    color: #3A3A36;
-    background: #EDEAE0;
-}
-.sum-box.ok  { border-left-color: #2D6A4F; }
-.sum-box.mid { border-left-color: #B45309; }
-.sum-box.bad { border-left-color: #D4401A; }
-
-/* ─── VIOLATIONS ─── */
-.viol-lbl {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #D4401A;
-    margin-bottom: 10px;
-}
-.viol-row {
-    font-size: 13px;
-    color: #1C1C1A;
-    padding: 11px 16px;
-    margin-bottom: 4px;
-    background: #EDEAE0;
-    border-left: 2px solid #D4401A;
-    line-height: 1.5;
-}
-
 /* ─── INPUTS ─── */
 .stTextInput input, .stNumberInput input {
     background: #EDEAE0 !important;
@@ -280,7 +236,7 @@ label { font-size: 11px !important; color: #8C8C7A !important; letter-spacing: 0
 </style>
 """, unsafe_allow_html=True)
 
-# Динамическое применение основного фона
+# Динамическое применение основного фонда
 if main_bg:
     st.markdown(f"""
     <style>
@@ -324,14 +280,22 @@ page = st.sidebar.radio("", ["Планограмма", "Анализ", "Исто
 
 
 
-
-# Маршрутизация страниц из пакета pages
+# Маршрутизация страниц с защитой от сбоев путей окружения
 if page == "Планограмма":
-    from pages import planogram
+    try:
+        from pages import planogram
+    except ModuleNotFoundError:
+        import planogram
     planogram.show()
 elif page == "Анализ":
-    from pages import analyze
+    try:
+        from pages import analyze
+    except ModuleNotFoundError:
+        import analyze
     analyze.show()
 elif page == "История":
-    from pages import history
+    try:
+        from pages import history
+    except ModuleNotFoundError:
+        import history
     history.show()
