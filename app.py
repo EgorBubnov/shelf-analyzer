@@ -295,15 +295,11 @@ div[data-testid="stExpander"] summary {
     border-radius: 0 !important;
     padding: 12px 16px !important;
 }
-div[data-testid="stExpander"] summary:hover {
-    background: #DDD9CF !important;
-    background-color: #DDD9CF !important;
-    color: #1C1C1A !important;
-}
+div[data-testid="stExpander"] summary:hover,
 div[data-testid="stExpander"] summary:focus,
 div[data-testid="stExpander"] summary:active {
-    background: #DDD9CF !important;
-    background-color: #DDD9CF !important;
+    background: transparent !important;
+    background-color: transparent !important;
     color: #1C1C1A !important;
     outline: none !important;
     box-shadow: none !important;
