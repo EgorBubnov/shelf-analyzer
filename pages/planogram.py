@@ -47,7 +47,9 @@ def show():
                 )
                 shelf["products"] = [p.strip() for p in raw.split(",") if p.strip()]
             if shelf["products"]:
-                chips = "".join([f'<span class="tag tag-note">{j+1}. {p}</span>' for j, p in enumerate(shelf["products"])])
+                chips = "".join(
+                    [f'<span style="font-size:12px;color:#1C1C1A;margin-right:8px">{j + 1}. {p}</span>' for j, p in
+                     enumerate(shelf["products"])])
                 st.markdown(f'<div class="tag-row">{chips}</div>', unsafe_allow_html=True)
 
     st.markdown("<hr class='rule'>", unsafe_allow_html=True)
