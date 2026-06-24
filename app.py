@@ -277,6 +277,41 @@ button[data-testid="baseButton-primary"]:active {
 }
 
 .stAlert { border-radius: 0 !important; }
+
+/* ─── EXPANDER (полки) ─── */
+div[data-testid="stExpander"] {
+    border: 1px solid #DDD9CF !important;
+    border-radius: 12px !important;
+    background: rgba(237, 234, 224, 0.85) !important;
+    overflow: hidden !important;
+}
+div[data-testid="stExpander"] summary {
+    font-family: "Space Grotesk", sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    color: #1C1C1A !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    padding: 12px 16px !important;
+}
+div[data-testid="stExpander"] summary:hover {
+    background: #DDD9CF !important;
+    background-color: #DDD9CF !important;
+    color: #1C1C1A !important;
+}
+div[data-testid="stExpander"] summary:focus,
+div[data-testid="stExpander"] summary:active {
+    background: #DDD9CF !important;
+    background-color: #DDD9CF !important;
+    color: #1C1C1A !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+div[data-testid="stExpander"] summary svg {
+    fill: #1C1C1A !important;
+    color: #1C1C1A !important;
+}
 .stSpinner { color: #D4401A !important; }
 
 /* metric */
