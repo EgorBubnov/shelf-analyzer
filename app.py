@@ -143,7 +143,7 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
     position: absolute;
     top: 0; left: 0;
     width: 3px; height: 100%;
-    background: #DDD9CF;
+    background: #1c1c1a;
 }
 .kpi-card.accent::before { background: #D4401A; }
 .kpi-lbl {
