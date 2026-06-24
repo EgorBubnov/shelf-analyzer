@@ -168,7 +168,7 @@ h2 { font-size: 18px !important; font-weight: 600 !important; }
 /* ─── INPUTS ─── */
 .stTextInput input, .stNumberInput input {
     background: #EDEAE0 !important;
-    border: 1px solid #DDD9CF !important;
+    border: 1px solid #1c1c1a !important;
     border-radius: 0 !important;
     font-family: 'Space Grotesk', sans-serif !important;
     font-size: 13.5px !important;
