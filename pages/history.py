@@ -3,7 +3,7 @@ import json
 
 
 def show():
-    st.markdown('<div class="page-eyebrow">Архив</div>', unsafe_allow_html=True)
+    
     st.title("История проверок")
     st.markdown('<p class="page-desc">Все проведённые анализы выкладки в хронологическом порядке.</p>', unsafe_allow_html=True)
 
