@@ -35,17 +35,39 @@ def show():
             st.image(display_bytes, use_container_width=True)
 
     with col_r:
+        shelves_with_products = [s for s in planogram["shelves"] if s["products"]]
+        total_pos = sum(len(s["products"]) for s in planogram["shelves"])
 
-        st.markdown(f'<div style="font-size:14px;font-weight:600;color:#1C1C1A;margin-bottom:14px">{planogram["name"]}</div>', unsafe_allow_html=True)
-        for shelf in planogram["shelves"]:
-            if shelf["products"]:
-                prods = " → ".join(shelf["products"])
-                st.markdown(f"""
-                <div style="margin-bottom:10px;padding-bottom:10px;>
-                    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:#8C8C7A;margin-bottom:4px">{shelf['name']}</div>
-                    <div style="font-size:12.5px;color:#3A3A36;line-height:1.5">{prods}</div>
+        st.markdown(f'''
+        <div style="background:#1C1C1A;border-radius:8px;overflow:hidden">
+            <div style="padding:14px 18px;border-bottom:1px solid #2E2E2C">
+                <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;
+                            text-transform:uppercase;color:#8C8C7A;margin-bottom:4px">Активная планограмма</div>
+                <div style="font-size:14px;font-weight:600;color:#F5F0E8">{planogram["name"]}</div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:#5A5A52;margin-top:4px">
+                    {len(shelves_with_products)} полки · {total_pos} позиций
                 </div>
-                """, unsafe_allow_html=True)
+            </div>
+        ''', unsafe_allow_html=True)
+
+        for i, shelf in enumerate(planogram["shelves"]):
+            if shelf["products"]:
+                is_last = (i == len([s for s in planogram["shelves"] if s["products"]]) - 1)
+                border = "" if is_last else "border-bottom:1px solid #2E2E2C;"
+                prods_html = "".join([
+                    f'<span style="font-family:monospace;font-size:11px;color:#8C8C7A;margin-right:4px">{j+1}.</span>'
+                    f'<span style="font-size:12px;color:#DDD9CF;margin-right:12px">{p}</span>'
+                    for j, p in enumerate(shelf["products"])
+                ])
+                st.markdown(f'''
+                <div style="padding:12px 18px;{border}">
+                    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;
+                                text-transform:uppercase;color:#5A5A52;margin-bottom:6px">{shelf["name"]}</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:2px;line-height:1.8">{prods_html}</div>
+                </div>
+                ''', unsafe_allow_html=True)
+
+        st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("<hr class='rule'>", unsafe_allow_html=True)
 
