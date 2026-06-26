@@ -7,7 +7,7 @@ from utils.vision import analyze_shelf_image, resize_image_for_display
 def show():
     st.markdown('<div class="page-eyebrow">Проверка выкладки</div>', unsafe_allow_html=True)
     st.title("Анализ фото")
-    st.markdown('<p class="page-desc">Загрузите фронтальное фото прилавка — система сравнит фактическую выкладку с планограммой и укажет нарушения.</p>', unsafe_allow_html=True)
+    st.markdown('<p class="page-desc">Загрузите фронтальное фото прилавка - система сравнит фактическую выкладку с планограммой и укажет нарушения.</p>', unsafe_allow_html=True)
 
     if "planogram" not in st.session_state:
         st.warning("Сначала настройте планограмму в соответствующем разделе.")
@@ -15,7 +15,7 @@ def show():
 
     planogram = st.session_state.planogram
     if sum(len(s["products"]) for s in planogram["shelves"]) == 0:
-        st.warning("Планограмма пустая — добавьте товары.")
+        st.warning("Планограмма пустая - добавьте товары.")
         return
 
     # Автоматическое скрытое получение ключа
@@ -35,13 +35,13 @@ def show():
             st.image(display_bytes, use_container_width=True)
 
     with col_r:
-        st.markdown('<div class="col-lbl">Активная планограмма</div>', unsafe_allow_html=True)
+
         st.markdown(f'<div style="font-size:14px;font-weight:600;color:#1C1C1A;margin-bottom:14px">{planogram["name"]}</div>', unsafe_allow_html=True)
         for shelf in planogram["shelves"]:
             if shelf["products"]:
                 prods = " → ".join(shelf["products"])
                 st.markdown(f"""
-                <div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #DDD9CF">
+                <div style="margin-bottom:10px;padding-bottom:10px;>
                     <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:#8C8C7A;margin-bottom:4px">{shelf['name']}</div>
                     <div style="font-size:12.5px;color:#3A3A36;line-height:1.5">{prods}</div>
                 </div>
@@ -68,7 +68,7 @@ def show():
                 })
                 st.session_state.last_result = result
             except json.JSONDecodeError:
-                st.error("Некорректный ответ модели — попробуйте ещё раз")
+                st.error("Некорректный ответ модели - попробуйте ещё раз")
                 st.stop()
             except Exception as e:
                 st.error(f"Ошибка: {e}")
