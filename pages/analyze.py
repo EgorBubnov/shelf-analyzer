@@ -5,7 +5,7 @@ from utils.vision import analyze_shelf_image, resize_image_for_display
 
 
 def show():
-    st.markdown('<div class="page-eyebrow">Проверка выкладки</div>', unsafe_allow_html=True)
+
     st.title("Анализ фото")
     st.markdown('<p class="page-desc">Загрузите фронтальное фото прилавка - система сравнит фактическую выкладку с планограммой и укажет нарушения.</p>', unsafe_allow_html=True)
 
@@ -56,7 +56,7 @@ def show():
                 border = "" if is_last else "border-bottom:1px solid #2E2E2C;"
                 prods_html = "".join([
                     f'<span style="font-family:monospace;font-size:11px;color:#8C8C7A;margin-right:4px">{j+1}.</span>'
-                    f'<span style="font-size:12px;color:#DDD9CF;margin-right:12px">{p}</span>'
+                    f'<span style="font-size:14px;color:#1C1C1A;margin-right:12px">{p}</span>'
                     for j, p in enumerate(shelf["products"])
                 ])
                 st.markdown(f'''
