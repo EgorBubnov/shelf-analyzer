@@ -4,12 +4,12 @@
     {
       "id": 0,
       "name": "Верхняя полка (0.5л)",
-      "products": ["Coca-Cola 0.5л", "Coca-Cola Zero 0.5л", "Sprite 0.5л", "Fanta 0.5л", "Schweppes 0.5л"]
+      "products": ["Coca-Cola 0.5л", "Pepsi 0.5л", "Sprite 0.5л", "Fanta 0.5л", "Schweppes 0.5л"]
     },
     {
       "id": 1,
       "name": "Средняя полка (1.5л)",
-      "products": ["Coca-Cola 1.5л", "Coca-Cola Zero 1.5л", "Sprite 1.5л", "Fanta 1.5л", "Schweppes 1.5л", "Bon Aqua 1.5л"]
+      "products": ["Coca-Cola 1.5л", "Pepsi 1.5л", "Sprite 1.5л", "Fanta 1.5л", "Schweppes 1.5л", "Bon Aqua 1.5л"]
     },
     {
       "id": 2,
