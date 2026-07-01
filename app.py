@@ -314,6 +314,141 @@ div[data-testid="stExpander"] summary p {
 }
 .stSpinner { color: #D4401A !important; }
 
+/* ─── РЕЗУЛЬТАТЫ АНАЛИЗА ─── */
+
+/* Прогресс-бар соответствия */
+.comp-wrap {
+    background: #DDD9CF;
+    height: 4px;
+    margin: 16px 0 6px;
+    position: relative;
+}
+.comp-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+}
+.comp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #8C8C7A;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+/* Summary box */
+.sum-box {
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #1C1C1A !important;
+    border-left: 3px solid #DDD9CF;
+    background: rgba(237,234,224,0.9);
+}
+.sum-box.ok  { border-left-color: #2D6A4F; }
+.sum-box.mid { border-left-color: #B45309; }
+.sum-box.bad { border-left-color: #D4401A; }
+
+/* Нарушения */
+.viol-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #D4401A;
+    margin-bottom: 10px;
+}
+.viol-row {
+    font-size: 13px;
+    color: #1C1C1A !important;
+    padding: 11px 16px;
+    margin-bottom: 4px;
+    background: rgba(237,234,224,0.9);
+    border-left: 2px solid #D4401A;
+    line-height: 1.5;
+}
+
+/* Карточки полок */
+.shelf-wrap {
+    background: rgba(237,234,224,0.9);
+    margin-bottom: 4px;
+    border: 1px solid #DDD9CF;
+}
+.shelf-head {
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #DDD9CF;
+    background: rgba(220,216,205,0.9);
+}
+.shelf-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1C1C1A !important;
+}
+.shelf-body { padding: 16px 20px; }
+
+/* Товары */
+.col-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8C8C7A;
+    margin-bottom: 10px;
+}
+.prod-item {
+    font-size: 13px;
+    color: #1C1C1A !important;
+    padding: 4px 0;
+    border-bottom: 1px solid #DDD9CF;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.prod-item:last-child { border-bottom: none; }
+.prod-idx {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #8C8C7A;
+    min-width: 18px;
+}
+
+/* Чипы статуса */
+.chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid currentColor;
+}
+.chip-ok  { color: #2D6A4F !important; }
+.chip-bad { color: #D4401A !important; }
+.chip-mid { color: #8C8C7A !important; }
+
+/* Теги */
+.tag-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 3px 9px;
+    letter-spacing: 0.06em;
+}
+.tag-miss  { border: 1px solid #D4401A; color: #D4401A !important; }
+.tag-extra { border: 1px solid #B45309; color: #B45309 !important; }
+.tag-ok    { border: 1px solid #2D6A4F; color: #2D6A4F !important; }
+
+.wrong-note {
+    font-size: 12px;
+    color: #8C8C7A !important;
+    margin-top: 10px;
+    line-height: 1.6;
+    font-style: italic;
+}
+
 /* ─── ТЕКСТ ВНУТРИ EXPANDER ─── */
 div[data-testid="stExpander"] [data-testid="stMarkdownContainer"] p,
 div[data-testid="stExpander"] [data-testid="stMarkdownContainer"] span,
