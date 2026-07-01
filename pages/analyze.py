@@ -95,6 +95,27 @@ def show():
             except Exception as e:
                 st.error(f"Ошибка: {e}")
                 st.stop()
+    st.markdown("""
+        <div style="background-color: #f9f9f7; padding: 20px; border-radius: 8px; border: 1px solid #e0e0d8; margin-top: 20px;">
+            <h4 style="margin-top: 0; font-size: 15px; color: #333; margin-bottom: 12px;">Поддерживаемые категории товаров</h4>
+            <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                <p style="margin-bottom: 8px;">Система обучена на распознавание тысяч SKU и уверенно работает со следующими брендами:</p>
+                <ul style="margin: 0; padding-left: 20px;">
+                    <li><b>Напитки и соки:</b> Coca-Cola, Pepsi, Fanta, Sprite, Schweppes, BonAqua, Rich, Добрый, J7, Моя Семья, Сады Придонья.</li>
+                    <li><b>Снеки и чипсы:</b> Lays, Cheetos, Pringles, Хрусteam, Estrella, Lorenz.</li>
+                    <li><b>Кондитерские изделия:</b> Snickers, Mars, Bounty, Twix, M&M's, KitKat, Alpen Gold, Milka, Ferrero Rocher, Raffaello, Kinder.</li>
+                    <li><b>Молочная продукция:</b> Danone, Простоквашино, Домик в деревне, Активиа, Valio, Чудо, Parmalat, President.</li>
+                    <li><b>Бакалея, чай и кофе:</b> Nestle, Nescafe, Jacobs, Lipton, Ahmad, Greenfield, Heinz, Maggi, Knorr, Роллтон, Макфа.</li>
+                    <li><b>Бытовая химия и гигиена:</b> Ariel, Tide, Fairy, Persil, Colgate, Blend-a-med, Oral-B, Gillette, Pantene, Head & Shoulders, Dove, Nivea, Unilever, Synergetic.</li>
+                    <li><b>Косметика и уход:</b> L'Oreal, Garnier, Schwarzkopf, Maybelline, Max Factor.</li>
+                </ul>
+            </div>
+            <p style="font-size: 12px; color: #777; margin-top: 15px; font-style: italic;">
+                * Список постоянно пополняется. Система также способна распознавать локальные и нишевые бренды, 
+                однако для них могут возникать погрешности в точности классификации.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
     if "last_result" in st.session_state and uploaded:
         _render(st.session_state.last_result, planogram)
